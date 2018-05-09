@@ -15,14 +15,13 @@ var wordLibrary =
 var usedWords = [];
 var lettersGuessed = [];
 var word_guessed = false;
+
 var word = wordLibrary[Math.floor(Math.random() * wordLibrary.length)];
 usedWords.push(word);
-
-var wordObj = [];                                                                // 
-for (i=0; i<word.length; i++)                                                    // array of letters and 1/0 : 1 = show, 0 = dont show(default)
-{wordObj.push([0,word[i]]);}                                                     // ex.  [[0,"p"],[1,"e"],[0,"t"]] = "-e-"
+var wordObj = [];
+for (i=0; i<word.length; i++)                                               // array of letters and 1/0 : 1 = show, 0 = dont show(default)
+    {wordObj.push([0,word[i]]);}                                            // ex.  [[0,"p"],[1,"e"],[0,"t"]] = "-e-"
 updateWordText();
-
 
 //----------------------------------  GAME   ----------------------------------
 var lives = 10;
@@ -35,11 +34,22 @@ document.onkeyup = function(event)
             {
                 var result = playGuess(usrInput);
                 var msg = "";
-                lives += result;
-                if (result == 1) {msg = "YOU GUESSED CORRECTLY";}
+                if (result == 1)
+                    {
+                        msg = "YOU GUESSED CORRECTLY";
+                        if (word_guessed)
+                            {
+                                //WHAT TO DO WHEN WORD IS GUESSED
+                            }
+                    }
                 else if (result == 0) {msg = "Key has already been pressed";}
-                else {msg = "you guess.... poorly";}
-                document.getElementById("notification").innerHTML = msg;        
+                else 
+                    {
+                        lives--;
+                        msg = "you guess.... poorly";
+                    }
+                document.getElementById("notification").innerHTML = msg;
+                document.getElementById("lives").innerHTML = "lives Left : " + lives.toString();
             }
     }
 
@@ -50,8 +60,12 @@ document.onkeyup = function(event)
 function pickNewWord ()                                                             //// pickNewWord reasigns the var word to unused word from library
     {                                                                               //
         while (usedWords.indexOf(word) != -1)                                       // while the word has been used before (is in usedWords)
-            {words = wordLibrary[Math.floor(Math.random() * wordLibrary.length)];}  // = pick randoom word from library
+            {word = wordLibrary[Math.floor(Math.random() * wordLibrary.length)];}  // = pick randoom word from library
         usedWords.push(word);                                                       // add the word to usedWords (outside of while loop)
+        wordObj = []                                                                // reset wordObj so no conflicts with prev wordObj
+        for (i=0; i<word.length; i++)                                               // array of letters and 1/0 : 1 = show, 0 = dont show(default)
+            {wordObj.push([0,word[i]]);}                                            // ex.  [[0,"p"],[1,"e"],[0,"t"]] = "-e-"
+
     }
 
 function playGuess (userGuess)                                                      //// Plas takes a char, and returns a bool stating if the 
@@ -59,13 +73,21 @@ function playGuess (userGuess)                                                  
         if (lettersGuessed.indexOf(userGuess) == -1)                                // check if that key has already been pressed before
             {                                                                       //
                 lettersGuessed.push(userGuess);                                     // if key not pressed before, add it to list of keys pressed
-                if (word.indexOf(userGuess) != -1)                                  // |    if key found within word
+                if (word.indexOf(userGuess) != -1)                                  // +    if key found within word
                     {                                                               // |    |
+                        var letters_found = 0;
                         for(i=0; i<wordObj.length; i++)                             // |    | go through each letter of word
                             {                                                       // |    |
-                                if (wordObj[i][1] == userGuess)                     // |    | find all instances of the letter guessed correctly
-                                    {wordObj[i][0] = 1;}                            // |    | and mark the letter as found
+                                if (word_Obj[i][0])
+                                    {letters_found++;}
+                                else if (wordObj[i][1] == userGuess)                // |    | find all instances of the letter guessed correctly
+                                    {
+                                        letters_found++;
+                                        wordObj[i][0] = 1;
+                                    }                                               // |    | and mark the letter as found
                             }                                                       // |    |
+                        if (letters_found == wordObj.length)
+                            {word_guessed = true;}
                         document.getElementById(userGuess).style.color = "green";   // |    | change letter color to green
                         updateWordText();                                           // |    | update html page to show locations of correctly guessed letter
                         return 1;                                                   // |    + return 1 (guessed correctly)
@@ -73,7 +95,7 @@ function playGuess (userGuess)                                                  
                 document.getElementById(userGuess).style.color = "red";             // |    | change letter color to red
                 return -1;                                                          // |    |
             }                                                                       // |    - return -1 (guessed incorrectly)
-        return 0;                                                                   // = return 0 (letter already guessed)
+        return 0;                                                                   // - return 0 (letter already guessed)
     }
 
     
@@ -87,6 +109,18 @@ function updateWordText()
                 else
                     {result += "-";}
                 document.getElementById("word").innerHTML = result;
-            }
-        
+            }        
     }
+
+    function resetGame()
+        {
+            lives = 10;
+            pickNewWord();
+            lettersGuessed = [];
+            word_guessed = false;
+            document.getElementsByTagName("LI").style.color = "black";
+        }
+    function checkIfWon()
+        {
+            for(word_obj)
+        }
