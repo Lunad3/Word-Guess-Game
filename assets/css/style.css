@@ -1,0 +1,11 @@
+ol
+    {
+        list-style-type: none;
+    }
+
+li 
+    {
+        list-style-type: none;
+        display: inline;
+        font-weight:  bolder;
+    }
