@@ -1,16 +1,16 @@
-
+I
 //---------------------TESTING AREA-------------------------------------------
 
 
 //---------------------------------Game Setup---------------------------------
 var wordLibrary = 
     [
-        "hang","rude",
-        // "shape","average","good","numerous","suffer",
-        // "stuff","unusual","excited","surround","produce","grab",
-        // "exclusive","hope","eggs","lackadasical","door","heavy","flame",
-        // "vengeful","battle","pig","impolite","coil","vessel","parched",
-        // "bump","scale","bright","misty","prepare","zealous","hospitable",
+        "ang","rude",
+         "shape","average","good","numerous","suffer",
+         "stuff","unusual","excited","surround","produce","grab",
+         "exclusive","hope","eggs","lackadasical","door","heavy","flame",
+         "vengeful","battle","pig","impolite","coil","vessel","parched",
+         "bump","scale","bright","misty","prepare","zealous","hospitable,
         // "rightful","spotted","pump","wrap","knife"
     ];
 var score = 0;
