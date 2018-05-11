@@ -10,8 +10,8 @@ var wordLibrary =
          "stuff","unusual","excited","surround","produce","grab",
          "exclusive","hope","eggs","lackadasical","door","heavy","flame",
          "vengeful","battle","pig","impolite","coil","vessel","parched",
-         "bump","scale","bright","misty","prepare","zealous","hospitable,
-        // "rightful","spotted","pump","wrap","knife"
+         "bump","scale","bright","misty","prepare","zealous","hospitable",
+         "rightful","spotted","pump","wrap","knife"
     ];
 var score = 0;
 var usedWords = [];
